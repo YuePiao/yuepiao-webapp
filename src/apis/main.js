@@ -12,12 +12,16 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 export const User = Vue.resource('/api/users{/id}', {}, {
-  login: {
+  signin: {
     method: 'POST',
-    url: '/api/users/login',
+    url: '/api/users/signin',
   },
-  logout: {
+  signup: {
     method: 'POST',
-    url: '/api/users/login',
+    url: '/api/users/signup',
+  },
+  signout: {
+    method: 'POST',
+    url: '/api/users/signout',
   },
 })

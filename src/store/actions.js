@@ -1,8 +1,8 @@
 import { User } from '@/apis/main'
 import * as storage from './storage'
 
-export function login ({ commit, dispatch }, user) {
-  return User.login({
+export function signin ({ commit, dispatch }, user) {
+  return User.signin({
     include: 'user',
   }, {
     username: user.username,
@@ -21,14 +21,14 @@ export function login ({ commit, dispatch }, user) {
 }
 
 export function signup ({ commit, dispatch }, user) {
-  return User.save({
+  return User.signup({
     username: user.username,
     password: user.password,
   })
 }
 
-export function logout ({ commit }) {
-  return User.logout()
+export function signout ({ commit }) {
+  return User.signout()
   .then(() => {
     commit('REMOVE_ACCESS_TOKEN')
     commit('REMOVE_CURRENT_USER')

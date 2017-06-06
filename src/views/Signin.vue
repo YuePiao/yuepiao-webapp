@@ -1,13 +1,13 @@
 <template lang='pug'>
-  .login-page
-    el-col.login-form-wrapper(:xs='22', :sm='16', :md='12', :lg='10')
-      el-form.login-form
+  .signin-page
+    el-col.signin-form-wrapper(:xs='22', :sm='16', :md='12', :lg='10')
+      el-form.signin-form
         el-form-item
           el-input(placeholder='Username or E-mail', v-model='username')
         el-form-item
           el-input(type='password', placeholder='Password', v-model='password')
-        el-form-item.login-btn-wrapper
-          el-button.login-btn(nativeType='submit', type='primary', @click.prevent='OnSubmit') Login
+        el-form-item.signin-btn-wrapper
+          el-button.signin-btn(nativeType='submit', type='primary', @click.prevent='OnSubmit') signin
 </template>
 
 <script>
@@ -24,14 +24,14 @@ export default {
     this.readFromStorage()
       .then(({ accessToken, currentUser }) => {
         if (accessToken && currentUser) {
-          // TODO check login
+          // TODO check signin
           this.$router.push({ name: 'Main' })
         }
       })
   },
   methods: {
     OnSubmit () {
-      this.login({
+      this.signin({
         username: this.username,
         password: this.password,
       })
@@ -48,7 +48,7 @@ export default {
       })
     },
     ...mapActions([
-      'login',
+      'signin',
       'saveToStorage',
       'readFromStorage',
     ]),
@@ -57,30 +57,30 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
+.signin-page {
   height: 100%;
   width: 100%;
   position: relative;
 }
 
-.login-form-wrapper {
+.signin-form-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.login-form {
+.signin-form {
   background: #e0e6ed;
   padding: 2rem;
   border-radius: 10px;
 }
 
-.login-btn-wrapper {
+.signin-btn-wrapper {
   margin: 0;
 }
 
-.login-btn {
+.signin-btn {
   width: 100%;
 }
 
