@@ -1,7 +1,28 @@
 {
-  "users": [{
-    "username": "test1"
-  }, {
-    "username": "test2"
-  }]
+  "movies": [
+    {
+      "id": 1,
+      "name": "神奇女侠",
+      "uri": "1.jpg",
+      "rating": 60
+    },
+    {
+      "id": 2,
+      "name": "摔跤吧！爸爸",
+      "uri": "2.jpg",
+      "rating": 80
+    }
+  ],
+  "cinemas": [
+    {
+      "id": 1,
+      "name": "金逸珠江国际影城-广州大学城店",
+      "address": "番禺区大学城GOGO新天地商业广场三层第3A028号"
+    },
+    {
+      "id": 2,
+      "name": "广州金逸国际影城二沙岛店",
+      "address": "广州市越秀区二沙岛烟雨路28号"
+    }
+  ]
 }

@@ -1,26 +1,42 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Signin from '@/views/Signin'
 import Signup from '@/views/Signup'
 import Main from '@/views/Main/Main'
+
+import Account from '@/views/Main/Account/Account'
+import Moments from '@/views/Main/Moments/Moments'
+import Movies from '@/views/Main/Movies/Movies'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'Main',
-      component: Main,
+  routes: [{
+    path: '/',
+    name: 'Main',
+    component: Main,
+    children: [{
+      path: '/account',
+      name: 'Account',
+      component: Account,
     }, {
-      path: '/signin',
-      name: 'Signin',
-      component: Signin,
+      path: '/moments',
+      name: 'Moments',
+      component: Moments,
     }, {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup,
-    },
-  ],
+      path: '/movies',
+      name: 'Movies',
+      component: Movies,
+    }],
+  }, {
+    path: '/signin',
+    name: 'Signin',
+    component: Signin,
+  }, {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup,
+  }],
 })

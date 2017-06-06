@@ -25,3 +25,7 @@ export const User = Vue.resource('/api/users{/id}', {}, {
     url: '/api/users/signout',
   },
 })
+
+export const Movies = Vue.resource('/api/movies{/mid}')
+
+export const Cinemas = Vue.resource('/api/movies{/mid}/cinemas{/cid}')

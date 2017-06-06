@@ -1,8 +1,17 @@
 <template lang='pug'>
   .main-page
-    el-menu.primary-menu(theme='dark', router)
-      el-menu-item(v-for='menu in menus', key='menu.index', :index='menu.index')
-        i(:class='menu.icon')
+    .primary-menu
+      el-menu.menu(theme='dark')
+        .menu-title Yue Piao
+        .menu-body
+          router-link(v-for='menu in menus', key='menu.index', :to='{ name: menu.index }')
+            el-menu-item(:index='menu.index')
+              i(:class='menu.icon')
+              | {{ menu.text }}
+        .menu-footer
+          el-menu-item(index='Signout')
+            i.el-icon-setting
+            | 注销
     router-view.primary-content
 </template>
 
@@ -11,14 +20,17 @@ export default {
   data () {
     return {
       menus: [{
-        index: '/movies',
-        icon: 'el-icon-picture',
+        index: 'Movies',
+        icon: 'el-icon-message',
+        text: '电影',
       }, {
-        index: '/moments',
+        index: 'Moments',
         icon: 'el-icon-menu',
+        text: '动态',
       }, {
-        index: '/account',
-        icon: 'el-icon-information',
+        index: 'Account',
+        icon: 'el-icon-setting',
+        text: '用户',
       }],
     }
   },
@@ -26,22 +38,36 @@ export default {
 </script>
 
 <style>
-.main-page {
+.main-page, .movies-page, .moments-page, .account-page {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: stretch;
   height: 100%;
 }
 
-.primary-menu {
+.primary-menu, {
   flex: none;
-  width: 4rem;
-  height: 100%;
-  border-radius: 0;
+  width: 10rem;
 }
 
-.primary-content {
+.menu {
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.primary-menu .menu-title, .primary-menu .menu-footer {
+  flex: none;
+}
+
+.primary-menu .menu-body, .primary-content, .secondary-content {
   flex: auto;
 }
 
+.menu-title {
+  color: #bfcbd9;
+  padding: 20px;
+  font-size: x-large;
+}
 </style>
