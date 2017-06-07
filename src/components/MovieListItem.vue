@@ -23,6 +23,13 @@ export default {
   padding: 1rem;
   white-space: nowrap;
   overflow: hidden;
+  color: #333333;
+  transition: color .3s, background-color .3s;
+}
+
+.movie-list-item:hover {
+  background-color: #dee1e6;
+  color: black;
 }
 
 .movie-list-item .movie-cover, .movie-list-item .movie-description {

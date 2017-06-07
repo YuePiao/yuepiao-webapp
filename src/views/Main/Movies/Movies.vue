@@ -1,7 +1,8 @@
 <template lang='pug'>
   .movies-page
     movie-list.movies-menu
-      movie-list-item(v-for='(movie, index) in movies', key='index', :movie='movie')
+      router-link(v-for='(movie, index) in movies', key='index', :to='{ name: "Cinemas", params: { movieId: movie.id } }')
+        movie-list-item(:movie='movie')
     router-view.secondary-content
 </template>
 

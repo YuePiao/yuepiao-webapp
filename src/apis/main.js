@@ -28,4 +28,6 @@ export const User = Vue.resource('/api/users{/id}', {}, {
 
 export const Movies = Vue.resource('/api/movies{/mid}')
 
-export const Cinemas = Vue.resource('/api/movies{/mid}/cinemas{/cid}')
+export const Cinemas = Vue.resource('/api/cinemas{/cid}')
+
+export const Rounds = Vue.resource('/api/rounds{/rid}')
