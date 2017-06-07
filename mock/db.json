@@ -95,7 +95,17 @@
       "price": 36,
       "place": "1号4k激光厅",
       "beginTime": 1496719800000,
-      "endTime": 1496727000000
+      "endTime": 1496727000000,
+      "seatsRows": 6,
+      "seatsColumns": 5,
+      "seats": [
+        [ "empty", "disabled", "available", "available", "empty" ],
+        [ "empty", "disabled", "available", "available", "empty" ],
+        [ "available", "disabled", "available", "available", "disabled" ],
+        [ "available", "available", "disabled", "disabled", "available" ],
+        [ "available", "blocked", "friend", "available", "available" ],
+        [ "available", "available", "available", "available", "available" ]
+      ]
     }
   ]
 }

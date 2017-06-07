@@ -13,7 +13,8 @@
         el-table-column(prop='price', label='票价')
         el-table-column(label='操作')
           template(scope='round')
-            el-button 购票
+            router-link(:to='{ name: "Seats", params: { roundId: round.row.id } }')
+              el-button 购票
 </template>
 
 <script>

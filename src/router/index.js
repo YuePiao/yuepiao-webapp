@@ -9,6 +9,7 @@ import Account from '@/views/Main/Account/Account'
 import Moments from '@/views/Main/Moments/Moments'
 import Movies from '@/views/Main/Movies/Movies'
 import Cinemas from '@/views/Main/Movies/Cinemas'
+import Seats from '@/views/Main/Movies/Seats'
 
 Vue.use(Router)
 
@@ -31,13 +32,17 @@ export default new Router({
       name: 'Movies',
       component: Movies,
       children: [{
-        path: ':movieId/cinemas',
+        path: 'cinema-list/:movieId',
         name: 'Cinemas',
         component: Cinemas,
         children: [{
-          path: ':cinemaId/rounds',
+          path: 'round-list/:cinemaId',
           name: 'Rounds',
         }],
+      }, {
+        path: 'select-seat/:roundId',
+        name: 'Seats',
+        component: Seats,
       }],
     }],
   }, {
