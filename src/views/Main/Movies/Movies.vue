@@ -1,30 +1,45 @@
 <template lang='pug'>
   .movies-page
-    el-menu.secondary-menu
-      router-link(v-for='menu in menus', key='menu.index', to='temp')
-        el-menu-item(:index='menu.index.toString()') {{ menu.text }}
+    movie-list.movies-menu
+      movie-list-item(v-for='(movie, index) in movies', key='index', :movie='movie')
     router-view.secondary-content
 </template>
 
 <script>
+import MovieList from '@/components/MovieList'
+import MovieListItem from '@/components/MovieListItem'
+
+import { Movies } from '@/apis/main'
+
 export default {
+  components: {
+    MovieList,
+    MovieListItem,
+  },
   data () {
     return {
-      menus: [{
-        index: 0,
-        text: '0',
-      }, {
-        index: 1,
-        text: '1',
-      }, {
-        index: 2,
-        text: '2',
-      }],
+      movies: [],
     }
+  },
+  created () {
+    Movies.get()
+      .then(({ body: movies }) => {
+        this.movies = movies
+      })
   },
 }
 </script>
 
 <style>
+.movies-page {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+}
 
+.movies-menu {
+  flex: none;
+  width: 16rem;
+}
 </style>

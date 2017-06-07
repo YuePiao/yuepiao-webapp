@@ -4,13 +4,65 @@
       "id": 1,
       "name": "神奇女侠",
       "uri": "1.jpg",
-      "rating": 60
+      "rating": 60,
+      "type": "爱情动作",
+      "duration": "120:00"
     },
     {
       "id": 2,
       "name": "摔跤吧！爸爸",
       "uri": "2.jpg",
-      "rating": 80
+      "rating": 80,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 3,
+      "name": "神奇女侠",
+      "uri": "1.jpg",
+      "rating": 60,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 4,
+      "name": "摔跤吧！爸爸",
+      "uri": "2.jpg",
+      "rating": 80,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 5,
+      "name": "神奇女侠",
+      "uri": "1.jpg",
+      "rating": 60,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 6,
+      "name": "摔跤吧！爸爸",
+      "uri": "2.jpg",
+      "rating": 80,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 7,
+      "name": "神奇女侠",
+      "uri": "1.jpg",
+      "rating": 60,
+      "type": "爱情动作",
+      "duration": "120:00"
+    },
+    {
+      "id": 8,
+      "name": "摔跤吧！爸爸",
+      "uri": "2.jpg",
+      "rating": 80,
+      "type": "爱情动作",
+      "duration": "120:00"
     }
   ],
   "cinemas": [

@@ -6,7 +6,7 @@ Vue.use(VueResource)
 Vue.http.interceptors.push((request, next) => {
   const store = require('@/store').default
   if (store.state.accessToken) {
-    request.headers.set('Authorization', store.state.accessToken.id)
+    request.headers.set('Authorization', store.state.accessToken)
   }
   next()
 })

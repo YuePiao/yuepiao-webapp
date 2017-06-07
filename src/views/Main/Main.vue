@@ -1,7 +1,7 @@
 <template lang='pug'>
   .main-page
-    .primary-menu
-      el-menu.menu(theme='dark')
+    .menu-wrapper
+      el-menu.primary-menu(theme='dark')
         .menu-title Yue Piao
         .menu-body
           router-link(v-for='menu in menus', key='menu.index', :to='{ name: menu.index }')
@@ -9,17 +9,23 @@
               i(:class='menu.icon')
               | {{ menu.text }}
         .menu-footer
-          el-menu-item(index='Signout')
+          el-menu-item(index='Signout', @click='handleSignout')
             i.el-icon-setting
             | 注销
     router-view.primary-content
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
-      menus: [{
+    }
+  },
+  computed: {
+    menus () {
+      return [{
         index: 'Movies',
         icon: 'el-icon-message',
         text: '电影',
@@ -31,30 +37,47 @@ export default {
         index: 'Account',
         icon: 'el-icon-setting',
         text: '用户',
-      }],
-    }
+      }]
+    },
+  },
+  created () {
+    this.readFromStorage()
+  },
+  methods: {
+    handleSignout () {
+      this.signout()
+    },
+    ...mapActions([
+      'signout',
+      'saveToStorage',
+      'readFromStorage',
+    ]),
   },
 }
 </script>
 
 <style>
-.main-page, .movies-page, .moments-page, .account-page {
+.main-page {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   height: 100%;
 }
 
-.primary-menu, {
+.menu-wrapper {
   flex: none;
   width: 10rem;
 }
 
-.menu {
+.primary-menu {
   border-radius: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.primary-menu a {
+  text-decoration: none !important;
 }
 
 .primary-menu .menu-title, .primary-menu .menu-footer {

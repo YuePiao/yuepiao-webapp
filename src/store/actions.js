@@ -3,17 +3,11 @@ import * as storage from './storage'
 
 export function signin ({ commit, dispatch }, user) {
   return User.signin({
-    include: 'user',
-  }, {
     username: user.username,
     password: user.password,
   })
   .then(({ body }) => {
-    const accessToken = {
-      id: body.id,
-      created: body.created,
-      ttl: body.ttl,
-    }
+    const accessToken = body.accessToken
     const currentUser = body.user
     commit('UPDATE_ACCESS_TOKEN', accessToken)
     commit('UPDATE_CURRENT_USER', currentUser)
