@@ -51,7 +51,10 @@ export default {
         const newSelecteds = this.selecteds.slice()
         if (findIndex !== -1) {
           newSelecteds.splice(findIndex, 1)
-        } else if (newSelecteds.length < this.selectLimit) {
+        } else {
+          if (newSelecteds.length >= this.selectLimit) {
+            newSelecteds.splice(0, 1)
+          }
           newSelecteds.push({ x, y })
         }
         this.$emit('update:selecteds', newSelecteds)
@@ -115,6 +118,7 @@ export default {
   width: 1rem;
   height: 1rem;
   vertical-align: top;
+  transition: background-color .3s;
 }
 
 .seat + .seat {
