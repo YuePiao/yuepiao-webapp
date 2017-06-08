@@ -12,13 +12,14 @@
       .round-place 影厅: {{ round.place }}
     .round-info
       .round-price ￥ {{ round.price }}
-      el-button(type='primary') 提交订单
+      el-button(type='primary', :disabled='disabled', @click='handleConfirm') 提交订单
 </template>
 
 <script>
 export default {
   props: {
     round: Object,
+    disabled: Boolean,
   },
   computed: {
     movie () {
@@ -26,6 +27,11 @@ export default {
     },
     cinema () {
       return (this.round && this.round.cinema) || {}
+    },
+  },
+  methods: {
+    handleConfirm () {
+      this.$emit('confirm')
     },
   },
 }
