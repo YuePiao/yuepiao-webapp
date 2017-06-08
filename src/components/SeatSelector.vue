@@ -63,14 +63,14 @@ export default {
 
 <style scoped>
 .seat-selector {
-  background: #D8D8D8;
-  border: solid 1px #979797;
+  /*background: #D8D8D8;*/
+  border: solid 1px #99A9BF;
 }
 
 .screen-placeholder {
   color: white;
   text-align: center;
-  background: #979797;
+  background: #99A9BF;
   width: 100%;
 }
 

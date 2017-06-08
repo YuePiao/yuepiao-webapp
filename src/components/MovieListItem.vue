@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .movie-list-item {
   height: 6rem;
   width: 14rem;

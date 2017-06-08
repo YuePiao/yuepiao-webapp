@@ -7,7 +7,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .movie-list {
   list-style: none;
   position: relative;

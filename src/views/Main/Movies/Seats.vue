@@ -1,13 +1,14 @@
 <template lang='pug'>
 .seats-page
-  round-info(:movie='currentMovie' , :cinema='currentCinema' , :total='amount' , :time='startTime' , :price='price' , :position='position')
-  seat-selector(:seats='seats', :selecteds.sync='selecteds')
-  p {{selecteds}}
+  .round-info
+    round-info(:round='round')
+  .seat-selector
+    seat-selector(:seats='round.seats', :selecteds.sync='selecteds')
 </template>
 
 <script>
-import SeatSelector from '@/components/SeatSelector'
 import RoundInfo from '@/components/RoundInfo'
+import SeatSelector from '@/components/SeatSelector'
 import { Rounds } from '@/apis/main'
 
 export default {
@@ -17,14 +18,7 @@ export default {
   },
   data () {
     return {
-      seatsRows: 0,
-      seatsColumns: 0,
-      seats: [],
-      currentMovie: new Object(),
-      currentCinema: new Object(),
-      startTime: 0,
-      price: 0,
-      position: '',
+      round: {},
       selecteds: [],
     }
   },
@@ -42,15 +36,8 @@ export default {
   methods: {
     fetchData () {
       Rounds.get({ rid: this.roundId })
-        .then(({ body }) => {
-          this.seatsRows = body.seatsRows
-          this.seatsColumns = body.seatsColumns
-          this.seats = body.seats
-          this.price = body.price
-          this.startTime = body.beginTime
-          this.position = body.place
-          this.currentMovie = body.movie
-          this.currentCinema = body.cinema
+        .then(({ body: round}) => {
+          this.round = round
         })
     },
   },
@@ -58,5 +45,7 @@ export default {
 </script>
 
 <style>
-
+.round-info {
+  padding: 1rem 0;
+}
 </style>

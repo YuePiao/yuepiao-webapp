@@ -1,8 +1,9 @@
 <template lang='pug'>
   .cinemas-page
-    cinema-list.cinema-list
-      router-link(v-for='(cinema, index) in cinemas', key='index', :to='{ name: "Rounds", params: { movieId: movieId, cinemaId: cinema.id } }')
-        cinema-list-item(:cinema='cinema')
+    .cinema-list
+      cinema-list
+        router-link(v-for='(cinema, index) in cinemas', key='index', :to='{ name: "Rounds", params: { movieId: movieId, cinemaId: cinema.id } }')
+          cinema-list-item(:cinema='cinema')
     .round-table
       el-table(:data='rounds')
         el-table-column(label='时间')

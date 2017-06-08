@@ -89,8 +89,9 @@
         "id": 1,
         "name": "神奇女侠",
         "uri": "1.jpg",
-        "note": "美漫改编，感觉不太好看",
-        "rating": 60
+        "rating": 60,
+        "type": "爱情动作",
+        "duration": "120:00"
       },
       "price": 36,
       "place": "1号4k激光厅",
