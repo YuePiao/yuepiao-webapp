@@ -109,71 +109,67 @@
       ]
     }
   ],
-  "watches": [
-    {
-      "user_id": "1",
-      "round_id": "2",
-      "seat_x": "4",
-      "seat_y": "8"
-    }, {
-      "user_id": "1",
-      "round_id": "2",
-      "seat_x": "10",
-      "seat_y": "5"
-    }, {
-      "user_id": "2",
-      "round_id": "2",
-      "seat_x": "4",
-      "seat_y": "7"
-    }, {
-      "user_id": "2",
-      "round_id": "5",
-      "seat_x": "12",
-      "seat_y": "3"
-    }, {
-      "user_id": "3",
-      "round_id": "5",
-      "seat_x": "10",
-      "seat_y": "11"
-    }, {
-      "user_id": "4",
-      "round_id": "2",
-      "seat_x": "10",
-      "seat_y": "6"
-    }, {
-      "user_id": "4",
-      "round_id": "3",
-      "seat_x": "5",
-      "seat_y": "3"
-    }
-  ],
-  "user_rels":[
-    {
-      "from_id": "2",
-      "to_id": "1"
-    }, {
-        "from_id": "4",
-        "to_id": "1"
-    }, {
-        "from_id": "1",
-        "to_id": "2"
-    }, {
-        "from_id": "1",
-        "to_id": "4"
-    }, {
-        "from_id": "2",
-        "to_id": "4"
-    }, {
-        "from_id": "3",
-        "to_id": "4"
-    }
-  ],
   "moments": [
     {
+      "id": {
+        "userId": 2,
+        "roundId": 2,
+        "seatX": 4,
+        "seatY": 7
+      },
+      "movie": "神奇女侠",
+      "cinema": "金逸珠江国际影城-广州大学城店",
+      "price": 30,
+      "place": "2号厅",
+      "beginTime": 1496773800000
+    },
+    {
+      "id": {
+        "userId": 4,
+        "roundId": 3,
+        "seatX": 5,
+        "seatY": 3
+      },
+      "movie": "摔跤吧！爸爸",
+      "cinema": "金逸珠江国际影城-广州大学城店",
+      "price": 30,
+      "place": "8号厅",
+      "beginTime": 1496773800000
+    },
+    {
+      "id": {
+        "userId": 4,
+        "roundId": 4,
+        "seatX": 10,
+        "seatY": 6
+      },
+      "movie": "摔跤吧！爸爸",
+      "cinema": "金逸珠江国际影城-广州大学城店",
+      "price": 30,
+      "place": "7号厅",
+      "beginTime": 1496777400000
+    },
+    {
+      "id": {
+        "userId": 2,
+        "roundId": 5,
+        "seatX": 12,
+        "seatY": 3
+      },
+      "movie": "摔跤吧！爸爸",
+      "cinema": "金逸珠江国际影城-广州大学城店",
+      "price": 30,
+      "place": "9号厅",
+      "beginTime": 1496784600000
+    }
+  ],
+  "users": {"userId":1,"username":"tywang","avatar":null},
+  "round": {
       "id": 1,
-      "user": {
-        "username": "souler",
-        "avatar": "1.jpg"
+      "cinema": {
+        "id": 1,
+        "name": "金逸珠江国际影城-广州大学城店",
+        "address": "番禺区大学城GOGO新天地商业广场三层第3A028号"
       },
       "movie": {
         "id": 1,
@@ -183,40 +179,19 @@
         "type": "爱情动作",
         "duration": "120:00"
       },
-      "round": {
-        "id": 1,
-        "cinema": {
-          "id": 1,
-          "name": "金逸珠江国际影城-广州大学城店",
-          "address": "番禺区大学城GOGO新天地商业广场三层第3A028号"
-        },
-        "movie": {
-          "id": 1,
-          "name": "神奇女侠",
-          "uri": "1.jpg",
-          "rating": 60,
-          "type": "爱情动作",
-          "duration": "120:00"
-        },
-        "price": 36,
-        "place": "1号4k激光厅",
-        "beginTime": 1496719800000,
-        "endTime": 1496727000000,
-        "seatsRows": 6,
-        "seatsColumns": 5,
-        "seats": [
-          [ "empty", "disabled", "available", "available", "empty" ],
-          [ "empty", "disabled", "available", "available", "empty" ],
-          [ "available", "disabled", "available", "available", "disabled" ],
-          [ "available", "available", "disabled", "disabled", "available" ],
-          [ "available", "blocked", "friend", "available", "available" ],
-          [ "available", "available", "available", "available", "available" ]
-        ]
-      },
-      "seat": {
-        "x": 1,
-        "y": 3
-      }
+      "price": 36,
+      "place": "1号4k激光厅",
+      "beginTime": 1496719800000,
+      "endTime": 1496727000000,
+      "seatsRows": 6,
+      "seatsColumns": 5,
+      "seats": [
+        [ "empty", "disabled", "available", "available", "empty" ],
+        [ "empty", "disabled", "available", "available", "empty" ],
+        [ "available", "disabled", "available", "available", "disabled" ],
+        [ "available", "available", "disabled", "disabled", "available" ],
+        [ "available", "blocked", "friend", "available", "available" ],
+        [ "available", "available", "available", "available", "available" ]
+      ]
     }
-  ]
 }

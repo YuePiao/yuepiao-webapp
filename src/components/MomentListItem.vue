@@ -1,18 +1,19 @@
 <template lang='pug'>
   li.moment-list-item
     .moment-icon
-      img.moment-cover(:src='moment.user.avatar')
-      .moment-username {{moment.user.username}}
+      img.moment-cover(:src='friend.avatar')
+      .moment-username {{friend.username}}
     .moment-description
-      .moment-name {{ moment.round.movie.name }}
-      .moment-cinema 影院: {{ moment.round.cinema.name | shorten}}
-      .moment-duration 日期: {{ moment.round.beginTime }}
+      .moment-name {{ moment.movie }}
+      .moment-cinema 影院: {{ moment.cinema | shorten}}
+      .moment-duration 日期: {{ moment.beginTime }}
 </template>
 
 <script>
 export default {
   props: {
     moment: Object,
+    friend: Object
   },
   filters: {
     shorten: (input) => {

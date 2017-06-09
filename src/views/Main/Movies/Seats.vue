@@ -38,7 +38,8 @@ export default {
   },
   methods: {
     fetchData () {
-      Rounds.get({ rid: this.roundId })
+      // Rounds.get({ rid: this.roundId })
+      Rounds.get()
         .then(({ body: round}) => {
           this.round = round
         })

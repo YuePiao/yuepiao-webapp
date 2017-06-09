@@ -9,7 +9,7 @@
 <script>
 import RoundInfo from '@/components/RoundInfo'
 import SeatSelector from '@/components/SeatSelector'
-import { Rounds } from '@/apis/main'
+import { Rounds } from '@/apis/moment'
 
 export default {
   components: {
@@ -41,12 +41,12 @@ export default {
   },
   methods: {
     fetchData () {
-      Rounds.get({ rid: this.roundId })
+      Rounds.get()
+      // Rounds.get({ rid: this.roundId })
         .then(({ body: round}) => {
           // Fetch from Server with the current User friend
           this.round = round
-          console.log(this.seat);
-          console.log(this.round);
+          if (this.seat.x < 0 || this.seat.y < 0 || this.seat.x >= round.seatsRows || this.seat.y >= round.seatsColumns) return;
           // Mark the current Round example into the seats attribute
           this.round.seats[this.seat.x][this.seat.y] = 'friend';
         })
