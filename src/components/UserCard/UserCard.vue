@@ -20,9 +20,13 @@
       span.el-dropdown-link
         | 操作
         i.el-icon-caret-bottom.el-icon--right
-      el-dropdown-menu(slot='dropdown')
-        el-dropdown-item(v-for='operation in operationList', :key='operation' :command='operation')
-          | {{operation}}
+      el-dropdown-menu(slot='dropdown', v-if='$route.params.userId === $store.state.currentUser.userId')
+        el-dropdown-item(command='follow', v-if='type === "follower"', :disabled='user.relation === "双向关注"')
+          | 关注
+        el-dropdown-item(command='unfollow', v-if='user.relation === "双向关注" || type === "following"')
+          | 取消关注
+        el-dropdown-item(command='disable', v-if='type === "follower"', :disabled='user.relation === "双向关注"')
+          | 禁止查看
 
 </template>
 
@@ -104,26 +108,25 @@ export default {
     followingCount() { return this.user.followingCount; },
     followerCount() { return this.user.followerCount; },
     relation() { return this.user.relation; },
-    avatarSrc() { return this.user.avatarSrc; },
-    operationList() { return this.type === 'follower'?['关注', '禁止查看']:['取消关注']; }
+    avatarSrc() { return this.user.avatarSrc; }
   },
   methods: {
     operationDispature(operation) {
       switch (operation) {
-        case '关注':
+        case 'follow':
           this.followUser(this.user.id)
           break
-        case '取消关注':
+        case 'unfollow':
           this.unfollowUser(this.user.id)
           break
         default:
       }
     },
     followUser(id) {
-      return id;
+      this.$emit('follow', id);
     },
     unfollowUser(id) {
-      return id;
+      this.$emit('unfollow', id);
     }
   }
 }
