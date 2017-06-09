@@ -165,7 +165,7 @@ export default {
   },
   created() {
     if (!this.$route.params.userId) {
-        this.$router.replace('/account/' + (this.$store.state.currentUser && this.$store.state.currentUser.userId)|| 1)
+        this.$router.replace('/account/' + ((this.$store.state.currentUser && this.$store.state.currentUser.userId)|| 1))
     }
     this.fetchData();
   },
@@ -203,7 +203,7 @@ export default {
 
     },
     onWatchedClick() {
-      this.$router.push({ name: 'moment', params: {userId: this.$route.params.userId} });
+      this.$router.push(`/moments/${this.$route.params.userId}`);
     },
     onFollowingClick() {
       if (this.state === 'following') return;
