@@ -26,6 +26,12 @@ export default {
     roundId () {
       return this.$route.params.roundId
     },
+    seat () {
+      return {
+        x: this.$route.params.seatX,
+        y: this.$route.params.seatY,
+      };
+    },
     amount () {
       return this.price * this.selecteds.length
     },
@@ -39,6 +45,10 @@ export default {
         .then(({ body: round}) => {
           // Fetch from Server with the current User friend
           this.round = round
+          console.log(this.seat);
+          console.log(this.round);
+          // Mark the current Round example into the seats attribute
+          this.round.seats[this.seat.x][this.seat.y] = 'friend';
         })
     },
   },

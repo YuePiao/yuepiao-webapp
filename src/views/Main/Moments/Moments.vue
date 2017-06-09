@@ -1,7 +1,7 @@
 <template lang='pug'>
   .moments-page
     moment-list.moments-menu
-      router-link(v-for='(moment, index) in moments', key='index', :to='{ name: "Seats", params: { momentId: moment.id } }')
+      router-link(v-for='(moment, index) in moments', key='index', :to='{ name: "MomentSeats", params: { roundId: moment.round.id , seatX: moment.seat.x , seatY: moment.seat.y} }')
         moment-list-item(:moment='moment')
     router-view.secondary-content
 </template>
@@ -115,13 +115,11 @@ export default {
           return this.requestWatches(data)
         })
         .then((result) => {
-          console.log(result)
           this.friendsList = result.friendsList;
           this.watchList = result.watchList;
           return this.requestRounds(result.watchList);
         })
         .then((result) => {
-          console.log("rounds:" , result);
           this.roundsList = result.roundList;
 
           // Handle the moments
@@ -139,13 +137,9 @@ export default {
             }
             momentum.push(tempData);
           }
-          console.log(momentum);
           this.moments = momentum;
         })
-    // Moments.get()
-    //   .then(({ body: moments }) => {
-    //     this.moments = moments
-    //   })
+
   },
 }
 </script>
