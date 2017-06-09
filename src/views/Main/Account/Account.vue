@@ -2,7 +2,7 @@
 .p-account
   .p-account__user-info
     .p-account__avatar
-      img(:src='userAvatar')
+      img(:src='avatar')
       .p-account__username {{username}}
     .p-account__count
       .p-account__count-item.counter(@click='onWatchedClick()')
@@ -22,17 +22,15 @@
           | 订单
         .counter__number.counter__number--payment {{paymentCount}}
   .p-account__content
-    el-table(v-if='state === "payment"', :data='payments')
-      el-table-column(prop='id', label='订单号')
-      el-table-column(prop='state', label='状态')
+    el-table(v-if='state === "payment"', :data='watchedList')
       el-table-column(prop='movie', label='电影')
       el-table-column(prop='cinema', label='影院')
-      el-table-column(prop='roundId', label='场次号')
-      el-table-column(prop='payment', label='金额')
+      el-table-column(prop='place', label='场次')
+      el-table-column(prop='price', label='金额')
     .p-account__follower-list(v-if='state === "follower"')
-      user-card(v-for='user in followerList', :user='user', @click='checkUser(user.id)', type='follower')
+      user-card(v-for='user in followerList', :user='user', @click='checkUser(user.id)', type='follower', @follow='follow')
     .p-account__follower-list(v-if='state === "following"')
-      user-card(v-for='user in followingList', :user='user', @click='checkUser(user.id)', type='following')
+      user-card(v-for='user in followingList', :user='user', @click='checkUser(user.id)', type='following', @unfollow='unfollow')
 
 
 </template>
@@ -112,6 +110,31 @@
 
 <script>
 import UserCard from '@/components/UserCard/UserCard.vue'
+import { Observable } from 'rxjs'
+function generateUserSteam(type) {
+  return Observable.fromPromise(this.$http.get(`/api/users/${this.$route.params.userId}/${type}`))
+    .pluck('body')
+    .concatMap(list => Observable.from(list))
+    .map(id => Observable.combineLatest([
+      Observable.fromPromise(this.$http.get(`/api/users/${id}`)).pluck('body'),
+      Observable.fromPromise(this.$http.get(`/api/users/${id}/moments`)).pluck('body','length'),
+      Observable.fromPromise(this.$http.get(`/api/users/${id}/following`)).pluck('body','length'),
+      Observable.fromPromise(this.$http.get(`/api/users/${id}/followers`)).pluck('body','length')
+      ])
+      .map(user => {
+        return {
+          username: user[0].username,
+          avatarSrc: user[0].avatar || 'https://dummyimage.com/120x120.jpg?text=avatar',
+          userId: user[0].userId,
+          watchedCount: user[1],
+          followingCount: user[2],
+          followerCount: user[3],
+          relation: '单向关注'
+        }
+      })
+    )
+    .combineAll();
+}
 export default {
   components: {
     UserCard
@@ -119,27 +142,68 @@ export default {
   data() {
     return {
       state: 'payment',
-      userAvatar: 'https://dummyimage.com/120x120.jpg?text=avatar',
+      avatar: 'https://dummyimage.com/120x120.jpg?text=avatar',
       username: '用户名',
-      watchedCount: 12,
-      followerCount: 23,
-      followingCount: 45,
-      paymentCount: 12,
       followerList: [],
       followingList: [],
-      user: {
-        username: '用户名',
-        followerCount: 12,
-        followingCount: 23,
-        watchedCount: 2,
-        relation: '单向关注',
-        avatarSrc: 'https://dummyimage.com/120x120.jpg?text=avatar'
-      }
+      watchedList: []
     }
   },
+  computed: {
+    followingCount() {
+      return this.followingList.length;
+    },
+    followerCount() {
+      return this.followerList.length;
+    },
+    watchedCount() {
+      return this.watchedList.length;
+    },
+    paymentCount() {
+      return this.watchedList.length;
+    }
+  },
+  created() {
+    if (!this.$route.params.userId) {
+        this.$router.replace('/account/' + (this.$store.state.currentUser && this.$store.state.currentUser.userId)|| 1)
+    }
+    this.fetchData();
+  },
   methods: {
+    fetchData() {
+
+      let following = generateUserSteam.call(this, 'following')
+      let followers = generateUserSteam.call(this, 'followers')
+
+      Observable.combineLatest(following, followers)
+      .subscribe((users) => {
+        console.log(users)
+        let followingList = users[0]
+        let followersList = users[1]
+
+        followersList.forEach(follower => {
+          let match = followingList.find(item => item.userId === follower.userId)
+          if(match) {
+            follower.relation = match.relation = '双向关注'
+          }
+        })
+
+        this.followerList = followersList
+        this.followingList = followingList
+      })
+
+      this.$http.get(`/api/users/${this.$route.params.userId}`).then(({body: user}) => {
+        this.avatarSrc = user.avatar || 'https://dummyimage.com/120x120.jpg?text=avatar'
+        this.username = user.username
+      })
+      
+      this.$http.get(`/api/users/${this.$route.params.userId}/moments`).then(({body:moments}) => {
+        this.watchedList = moments
+      })
+
+    },
     onWatchedClick() {
-      this.$router.push({ name: 'moment', params: {} });
+      this.$router.push({ name: 'moment', params: {userId: this.$route.params.userId} });
     },
     onFollowingClick() {
       if (this.state === 'following') return;
@@ -152,6 +216,12 @@ export default {
     onPaymentClick() {
       if (this.state === 'payment') return;
       this.state = 'payment'
+    },
+    follow(id) {
+      this.$http.post(`/api/users/${this.$store.state.currentUser.userId}/followers`, id)
+    },
+    unfollow(id) {
+      this.$http.delete(`/api/users/${this.$store.state.currentUser.userId}/followers/${id}`)
     }
   }
 }

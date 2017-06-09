@@ -19,8 +19,9 @@ export default new Router({
     path: '/',
     name: 'Main',
     component: Main,
-    children: [{
-      path: 'account',
+    children: [
+    {
+      path: 'account/:userId?',
       name: 'Account',
       component: Account,
     }, {
