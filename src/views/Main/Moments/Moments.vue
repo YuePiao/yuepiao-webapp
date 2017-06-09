@@ -1,8 +1,8 @@
 <template lang='pug'>
   .moments-page
     moment-list.moments-menu
-      router-link(v-for='(friend, index) in friendList', key='index', :to='{ name: "MomentSeats", params: { roundId: moments[index].id.roundId , seatX: moments[index].id.seatX , seatY: moments[index].id.seatY} }')
-        moment-list-item(:moment='moments[index]' , :friend='friend')
+      router-link(v-for='(moment, index) in moments', key='index', :to='{ name: "MomentSeats", params: { roundId: moment.id.roundId , seatX: moment.id.seatX , seatY: moment.id.seatY} }')
+        moment-list-item(:moment='moment' , :friend='user')
     router-view.secondary-content
 </template>
 
@@ -21,9 +21,15 @@ export default {
   data () {
     return {
       moments: [],
+      user: null,
       friendList: [],
       roundsList: [],
     }
+  },
+  computed: {
+    userId () {
+      return this.$route.params.userId;
+    },
   },
   methods: {
     requestMoments: () => {
@@ -36,31 +42,15 @@ export default {
                       }
                     })
     },
-    requestUsers: (momentsList) => {
-      let promise = Promise.resolve();
-      let requireObject = {
-        list: momentsList,
-        pos: 0,
-        result: [],
-      };
-      for (var i = 0 ; i < momentsList.length ; i++) {
-        promise = promise.then((users) => {
-          if (!users) users = requireObject;
-          return Users.get()
-          // return Users.get({uid: users.list[users.pos].id.userId})
-                      .then((data) => {
-                        users.result = users.result.concat(data.body);
-                        users.pos += 1;
-                        return users;
-                      })
-        })
-      }
-      promise = promise.then((users) => {
-        return {
-          userList: users.result,
-        }
-      })
-      return promise;
+    requestUser: (momentList) => {
+      // return Users.get({uid: userId})
+      return Users.get()
+                  .then((data) => {
+                    return {
+                      moment: momentList,
+                      user: data.body,
+                    }
+                  })
     },
     requestRounds: (momentsList) => {
       let promise = Promise.resolve;
@@ -95,16 +85,17 @@ export default {
     /**
      * TODO: get user id by username
      */
-     let userId = self.$store.getters.currentUser.username;
-
+    //  let userId = self.$store.getters.currentUser.username;
+    let userId = self.userId;
 
     self.requestMoments(userId)
         .then((data) => {
-          self.moments = data.moments;
-          return self.requestUsers(data.moments);
+          return self.requestUser(data.moments);
         })
         .then((data) => {
-          self.friendList = data.userList;
+          // self.friendList = data.userList;
+          self.moments = data.moment;
+          self.user = data.user;
         })
     // self.requestFromFriend()
     //     .then((data) => {

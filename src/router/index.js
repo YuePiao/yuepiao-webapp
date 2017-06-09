@@ -24,7 +24,7 @@ export default new Router({
       name: 'Account',
       component: Account,
     }, {
-      path: 'moments',
+      path: 'moments/:userId',
       name: 'Moments',
       component: Moments,
       children: [{

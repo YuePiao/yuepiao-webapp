@@ -110,57 +110,31 @@
     }
   ],
   "moments": [
-    {
-      "id": {
-        "userId": 2,
-        "roundId": 2,
-        "seatX": 4,
-        "seatY": 7
-      },
-      "movie": "神奇女侠",
-      "cinema": "金逸珠江国际影城-广州大学城店",
-      "price": 30,
-      "place": "2号厅",
-      "beginTime": 1496773800000
+  {
+    "id": {
+      "userId": 1,
+      "roundId": 2,
+      "seatX": 4,
+      "seatY": 8
     },
-    {
-      "id": {
-        "userId": 4,
-        "roundId": 3,
-        "seatX": 5,
-        "seatY": 3
-      },
-      "movie": "摔跤吧！爸爸",
-      "cinema": "金逸珠江国际影城-广州大学城店",
-      "price": 30,
-      "place": "8号厅",
-      "beginTime": 1496773800000
+    "movie": "神奇女侠",
+    "cinema": "金逸珠江国际影城-广州大学城店",
+    "price": 30,
+    "place": "2号厅",
+    "beginTime": 1496773800000
+  },
+  {
+    "id": {
+      "userId": 1,
+      "roundId": 4,
+      "seatX": 10,
+      "seatY": 5
     },
-    {
-      "id": {
-        "userId": 4,
-        "roundId": 4,
-        "seatX": 10,
-        "seatY": 6
-      },
-      "movie": "摔跤吧！爸爸",
-      "cinema": "金逸珠江国际影城-广州大学城店",
-      "price": 30,
-      "place": "7号厅",
-      "beginTime": 1496777400000
-    },
-    {
-      "id": {
-        "userId": 2,
-        "roundId": 5,
-        "seatX": 12,
-        "seatY": 3
-      },
-      "movie": "摔跤吧！爸爸",
-      "cinema": "金逸珠江国际影城-广州大学城店",
-      "price": 30,
-      "place": "9号厅",
-      "beginTime": 1496784600000
+    "movie": "摔跤吧！爸爸",
+    "cinema": "金逸珠江国际影城-广州大学城店",
+    "price": 30,
+    "place": "7号厅",
+    "beginTime": 1496777400000
     }
   ],
   "users": {"userId":1,"username":"tywang","avatar":null},
