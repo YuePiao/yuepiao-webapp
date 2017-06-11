@@ -10,7 +10,7 @@
 import MomentList from '@/components/MomentList'
 import MomentListItem from '@/components/MomentListItem'
 // import store from '@/store'
-import {Moments , Users , Rounds} from '@/apis/moment'
+import {Users , Rounds , SelfMoments} from '@/apis/moment'
 // import Unique from '@/util/unique'
 
 export default {
@@ -32,10 +32,10 @@ export default {
     },
   },
   methods: {
-    requestMoments: () => {
-    // requestMoments: (userId) => {
-      // return Moments.get({uid: userId})
-      return Moments.get()
+    // requestMoments: () => {
+    requestMoments: (userId) => {
+      return SelfMoments.get({uid: userId})
+      // return Moments.get()
                     .then((data) => {
                       return {
                         moments: data.body,
@@ -43,8 +43,8 @@ export default {
                     })
     },
     requestUser: (momentList) => {
-      // return Users.get({uid: userId})
-      return Users.get()
+      return Users.get({uid: momentList[0].id.userId})
+      // return Users.get()
                   .then((data) => {
                     return {
                       moment: momentList,

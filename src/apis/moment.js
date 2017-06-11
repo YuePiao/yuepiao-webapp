@@ -15,6 +15,7 @@ Vue.http.interceptors.push((request, next) => {
 // export const Moments = Vue.resource('/api/users{/uid}/following/moments');
 // export const Moments = Vue.resource('/api/users{/uid}/moments');
 export const Moments = Vue.resource('/api/moments{/uid}');
+export const SelfMoments = Vue.resource('/api/users{/uid}/moments');
 export const Users = Vue.resource('/api/users{/uid}');
 // export const Rounds = Vue.resource('/api/rounds{/rid}');
 export const Rounds = Vue.resource('/api/round{/rid}');
