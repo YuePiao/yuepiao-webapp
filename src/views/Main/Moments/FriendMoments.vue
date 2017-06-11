@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     userId () {
-      return (this.$store.getters.currentUser.userId ? this.$stote.getters.currentUser.userId : 1)
+      return (this.$store.getters.currentUser.userId ? this.$store.getters.currentUser.userId : 1)
     },
   },
   methods: {
