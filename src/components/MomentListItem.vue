@@ -6,14 +6,20 @@
     .moment-description
       .moment-name {{ moment.movie }}
       .moment-cinema 影院: {{ moment.cinema | shorten}}
-      .moment-duration 日期: {{ moment.beginTime }}
+      .moment-duration 日期: {{ solveTime(moment.beginTime) }}
 </template>
 
 <script>
+import Moment from 'moment'
 export default {
   props: {
     moment: Object,
     friend: Object
+  },
+  methods: {
+    solveTime (time) {
+      return ` ${Moment(time).format('YY年MM月DD日 hh:mm')}`
+    },
   },
   filters: {
     shorten: (input) => {
