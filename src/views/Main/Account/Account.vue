@@ -149,7 +149,16 @@ export default {
       watchedList: []
     }
   },
+  watch: {
+    userId(newVal, oldVal) {
+      if(newVal === oldVal) return;
+      this.fetchData();
+    }
+  },
   computed: {
+    userId() {
+      return this.$route.params.userId;
+    },
     followingCount() {
       return this.followingList.length;
     },
@@ -163,7 +172,7 @@ export default {
       return this.watchedList.length;
     }
   },
-  created() {
+  mounted() {
     if (!this.$route.params.userId) {
         this.$router.replace('/account/' + ((this.$store.state.currentUser && this.$store.state.currentUser.userId)|| 1))
     }

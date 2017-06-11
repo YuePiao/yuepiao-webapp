@@ -1,6 +1,6 @@
 <template lang='pug'>
 .user-card
-  .user-card__avatar
+  .user-card__avatar(@click='goToUser()')
     img.user-card__avatar-img(:src='avatarSrc')
   .user-card__content
     .user-card__user-name
@@ -20,7 +20,7 @@
       span.el-dropdown-link
         | 操作
         i.el-icon-caret-bottom.el-icon--right
-      el-dropdown-menu(slot='dropdown', v-if='$route.params.userId === $store.state.currentUser.userId')
+      el-dropdown-menu(slot='dropdown')
         el-dropdown-item(command='follow', v-if='type === "follower"', :disabled='user.relation === "双向关注"')
           | 关注
         el-dropdown-item(command='unfollow', v-if='user.relation === "双向关注" || type === "following"')
@@ -114,10 +114,10 @@ export default {
     operationDispature(operation) {
       switch (operation) {
         case 'follow':
-          this.followUser(this.user.id)
+          this.followUser(this.user.userId)
           break
         case 'unfollow':
-          this.unfollowUser(this.user.id)
+          this.unfollowUser(this.user.userId)
           break
         default:
       }
@@ -127,6 +127,9 @@ export default {
     },
     unfollowUser(id) {
       this.$emit('unfollow', id);
+    },
+    goToUser() {
+      this.$router.push(`/account/${this.user.userId}`);
     }
   }
 }
