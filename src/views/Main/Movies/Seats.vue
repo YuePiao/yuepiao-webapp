@@ -12,7 +12,8 @@
 <script>
 import RoundInfo from '@/components/RoundInfo'
 import SeatSelector from '@/components/SeatSelector'
-import { Rounds } from '@/apis/main'
+import { mapGetters } from 'vuex'
+import { User, Movies, Cinemas, Rounds } from '@/apis/main'
 
 export default {
   components: {
@@ -29,18 +30,54 @@ export default {
     roundId () {
       return this.$route.params.roundId
     },
-    amount () {
-      return this.price * this.selecteds.length
-    },
+    ...mapGetters([
+      'currentUser',
+    ]),
   },
   created () {
     this.fetchData()
   },
   methods: {
     fetchData () {
-      // Rounds.get({ rid: this.roundId })
-      Rounds.get()
-        .then(({ body: round}) => {
+      Rounds.meta({ rid: this.roundId })
+        .then(({ body: round }) => {
+          return Promise.all([
+            Movies.get({ mid: round.movieId }).then(({ body: movie }) => movie),
+            Cinemas.get({ mid: round.movieId, cid: round.cinemaId }).then(({ body: cinema }) => cinema),
+            Rounds.get({ rid: this.roundId }).then(({ body: seats }) => seats),
+          ])
+          .then(([ movie, cinema, seats ]) => {
+            round.movie = movie
+            round.cinema = cinema
+            round.seats = seats
+            return round
+          })
+        })
+        .then(round => {
+          const rawSeats = round.seats
+          const seats = Array(round.rows).fill(1).map(() => {
+            console.log('map')
+            return Array(round.columns).fill('available')
+          })
+          console.log(seats)
+          return User.following({ id: this.currentUser.userId })
+            .then(({ body: followings }) => {
+              rawSeats.forEach(rawSeat => {
+                let type = 'available'
+                if (followings.some(following => following === rawSeat.id.userId)) {
+                  type = 'friend'
+                } else {
+                  type = rawSeat.reportedCount ? 'blocked' : 'disabled'
+                }
+                seats[rawSeat.id.seatY - 1][rawSeat.id.seatX - 1] = type
+              })
+            })
+            .then(() => {
+              round.seats = seats
+              return round
+            })
+        })
+        .then(round => {
           this.round = round
         })
     },

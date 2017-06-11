@@ -22,11 +22,44 @@ export default {
       movies: [],
     }
   },
+  computed: {
+    routerName () {
+      return this.$route.name
+    },
+  },
+  watch: {
+    routerName (newVal) {
+      if (newVal === 'Movies') {
+        this.fetchData()
+          .then(() => this.gotoFirstMovie())
+      }
+    },
+  },
   created () {
-    Movies.get()
-      .then(({ body: movies }) => {
-        this.movies = movies
+    this.fetchData()
+      .then(() => {
+        if (this.routerName === 'Movies') {
+          this.gotoFirstMovie()
+        }
       })
+  },
+  methods: {
+    fetchData () {
+      return Movies.get()
+        .then(({ body: movies }) => {
+          this.movies = movies
+        })
+    },
+    gotoFirstMovie () {
+      if (this.movies.length) {
+        this.$router.push({
+          name: 'Cinemas',
+          params: {
+            movieId: this.movies[0].id,
+          },
+        })
+      }
+    },
   },
 }
 </script>
