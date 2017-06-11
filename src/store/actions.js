@@ -6,9 +6,7 @@ export function signin ({ commit, dispatch }, user) {
     username: user.username,
     password: user.password,
   })
-  .then(({ body }) => {
-    const accessToken = body.accessToken
-    const currentUser = body.user
+  .then(({ body: { digest: accessToken, userView: currentUser } }) => {
     commit('UPDATE_ACCESS_TOKEN', accessToken)
     commit('UPDATE_CURRENT_USER', currentUser)
   })

@@ -21,8 +21,9 @@
 <script>
 import CinemaList from '@/components/CinemaList'
 import CinemaListItem from '@/components/CinemaListItem'
+import Moment from 'moment'
 
-import { Cinemas, Rounds } from '@/apis/main'
+import { Cinemas } from '@/apis/main'
 
 export default {
   components: {
@@ -68,7 +69,7 @@ export default {
     fetchRounds () {
       let promise
       if (typeof this.cinemaId !== 'undefined') {
-        promise = Rounds.get({ mid: this.movieId, cid: this.cinemas })
+        promise = Cinemas.rounds({ mid: this.movieId, cid: this.cinemaId })
       } else {
         promise = Promise.resolve({ body: [] })
       }
@@ -77,7 +78,7 @@ export default {
       })
     },
     solveTime (begin, end) {
-      return new Date(begin) + new Date(end)
+      return ` ${Moment(begin).format('HH:mm')} ~ ${Moment(end).format('HH:mm')}`
     },
   },
 }
@@ -87,6 +88,7 @@ export default {
 .cinema-list, .round-table {
   height: 50%;
   padding: 0 1rem;
+  overflow: auto;
 }
 
 .cinema-list a {

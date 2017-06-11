@@ -14,7 +14,7 @@ Vue.http.interceptors.push((request, next) => {
 export const User = Vue.resource('/api/users{/id}', {}, {
   signin: {
     method: 'POST',
-    url: '/api/users/signin',
+    url: '/api/login/',
   },
   signup: {
     method: 'POST',
@@ -24,10 +24,24 @@ export const User = Vue.resource('/api/users{/id}', {}, {
     method: 'POST',
     url: '/api/users/signout',
   },
+  following: {
+    method: 'GET',
+    url: '/api/users{/id}/following',
+  },
 })
 
 export const Movies = Vue.resource('/api/movies{/mid}')
 
-export const Cinemas = Vue.resource('/api/cinemas{/cid}')
+export const Cinemas = Vue.resource('/api/movies{/mid}/cinemas{/cid}', {}, {
+  rounds: {
+    method: 'GET',
+    url: '/api/movies{/mid}/cinemas{/cid}/rounds',
+  },
+})
 
-export const Rounds = Vue.resource('/api/rounds{/rid}')
+export const Rounds = Vue.resource('/api/rounds{/rid}', {}, {
+  meta: {
+    methods: 'GET',
+    url: '/api/rounds{/rid}/meta',
+  },
+})

@@ -42,6 +42,13 @@ export default {
   },
   created () {
     this.readFromStorage()
+      .then(({ accessToken, currentUser }) => {
+        if (!accessToken && !currentUser) {
+          this.$router.push({
+            name: 'Signin'
+          })
+        }
+      })
   },
   methods: {
     handleSignout () {

@@ -5,7 +5,7 @@
       .movie-description
         .movie-name {{ movie.name }}
         .movie-type 类型: {{ movie.type }}
-        .round-begin-time 时长: {{ round.beginTime }}
+        .round-begin-time 时长: {{ calcDuration(round.beginTime, round.endTime) }}
     .cinema-info
       .cinema-name {{ cinema.name }}
       .cinema-address 地址: {{ cinema.address }}
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import Moment from 'moment'
+
 export default {
   props: {
     round: Object,
@@ -33,6 +35,10 @@ export default {
     handleConfirm () {
       this.$emit('confirm')
     },
+    calcDuration (start, end) {
+      const duration = Moment.duration(Moment(end) - Moment(start))
+      return `${duration.hours()}:${duration.minutes()}`
+    },
   },
 }
 </script>
@@ -41,6 +47,8 @@ export default {
 .round-info-wrapper {
   display: flex;
   flex-direction: row;
+  height: 6rem;
+  overflow: hidden;
 }
 
 .movie-info, .round-info {

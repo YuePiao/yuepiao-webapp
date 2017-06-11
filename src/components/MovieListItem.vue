@@ -4,7 +4,7 @@
     .movie-description
       .movie-name {{ movie.name }}
       .movie-type 类型: {{ movie.type }}
-      .movie-duration 时长: {{ movie.duration }}
+      .movie-duration 评分: {{ movie.rating }}
 </template>
 
 <script>
