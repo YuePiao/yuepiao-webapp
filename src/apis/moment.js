@@ -11,13 +11,16 @@ Vue.http.interceptors.push((request, next) => {
   next()
 })
 
-// Here we put a resourse
-// export const Moments = Vue.resource('/api/users{/uid}/following/moments');
-// export const Moments = Vue.resource('/api/users{/uid}/moments');
+
 export const Moments = Vue.resource('/api/moments{/uid}');
 export const SelfMoments = Vue.resource('/api/users{/uid}/moments');
+export const FriendMoments = Vue.resource('/api/users{/uid}/following/moments');
 export const Users = Vue.resource('/api/users{/uid}');
-// export const Rounds = Vue.resource('/api/rounds{/rid}');
-export const Rounds = Vue.resource('/api/round{/rid}');
-// export const MomentCinema = Vue.resource('/api/cinemas{/cid}');
-// export const MomentRound = Vue.resource('/api/rounds{/rid}');
+export const Rounds = Vue.resource('/api/rounds{/rid}', {}, {
+  meta: {
+    methods: 'GET',
+    url: '/api/rounds{/rid}/meta',
+  },
+})
+export const Movies = Vue.resource('/api/movies{/mid}')
+export const Cinemas = Vue.resource('/api/movies{/mid}/cinemas{/cid}')

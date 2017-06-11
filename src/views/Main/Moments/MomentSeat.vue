@@ -9,7 +9,7 @@
 <script>
 import RoundInfo from '@/components/RoundInfo'
 import SeatSelector from '@/components/SeatSelector'
-import { Rounds } from '@/apis/moment'
+import { Rounds , Movies , Cinemas} from '@/apis/moment'
 
 export default {
   components: {
@@ -39,16 +39,48 @@ export default {
   created () {
     this.fetchData()
   },
+  watch: {
+    roundId () {
+      this.fetchData()
+    }
+  },
   methods: {
     fetchData () {
-      Rounds.get()
-      // Rounds.get({ rid: this.roundId })
-        .then(({ body: round}) => {
-          // Fetch from Server with the current User friend
+      let self = this
+      Rounds.meta({ rid: this.roundId })
+        .then(({ body: round }) => {
+          return Promise.all([
+            Movies.get({ mid: round.movieId }).then(({ body: movie }) => movie),
+            Cinemas.get({ mid: round.movieId, cid: round.cinemaId }).then(({ body: cinema }) => cinema),
+            Rounds.get({ rid: this.roundId }).then(({ body: seats }) => seats),
+          ])
+          .then(([ movie, cinema, seats ]) => {
+            round.movie = movie
+            round.cinema = cinema
+            round.seats = seats
+            return round
+          })
+        })
+        .then(round => {
+          const rawSeats = round.seats
+          const seats = Array(round.rows).fill(1).map(() => {
+            return Array(round.columns).fill('available')
+          })
+          let friendSeats = [self.seat]
+          rawSeats.forEach(rawSeat => {
+            let type = 'available'
+            if (friendSeats.some(friendSeat => friendSeat.x === rawSeat.id.seatX && friendSeat.y === rawSeat.id.seatY)) {
+              type = 'friend'
+            } else {
+              type = rawSeat.reportedCount ? 'blocked' : 'disabled'
+            }
+            seats[rawSeat.id.seatY - 1][rawSeat.id.seatX - 1] = type
+          })
+          round.seats = seats;
+          return round;
+        })
+        .then(round => {
           this.round = round
-          if (this.seat.x < 0 || this.seat.y < 0 || this.seat.x >= round.seatsRows || this.seat.y >= round.seatsColumns) return;
-          // Mark the current Round example into the seats attribute
-          this.round.seats[this.seat.x][this.seat.y] = 'friend';
         })
     },
   },

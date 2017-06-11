@@ -11,6 +11,7 @@ import Movies from '@/views/Main/Movies/Movies'
 import Cinemas from '@/views/Main/Movies/Cinemas'
 import Seats from '@/views/Main/Movies/Seats'
 import MomentSeats from '@/views/Main/Moments/MomentSeat'
+import FriendMoments from '@/views/Main/Moments/FriendMoments'
 Vue.use(Router)
 
 export default new Router({
@@ -31,6 +32,15 @@ export default new Router({
       children: [{
         path: 'select-seat/:roundId/friend/:seatX/:seatY',
         name: 'MomentSeats',
+        component: MomentSeats,
+      }]
+    }, {
+      path: 'moments',
+      name: 'FriendMoments',
+      component: FriendMoments,
+      children: [{
+        path: 'select-seat/:roundId/friend/:seatX/:seatY',
+        name: 'MomentSeat',
         component: MomentSeats,
       }]
     }, {

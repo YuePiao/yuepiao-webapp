@@ -2,7 +2,7 @@
   li.moment-list-item
     .moment-icon
       img.moment-cover(:src='friend.avatar')
-      .moment-username {{friend.username}}
+      .moment-username {{friend.username | shortname}}
     .moment-description
       .moment-name {{ moment.movie }}
       .moment-cinema 影院: {{ moment.cinema | shorten}}
@@ -19,6 +19,10 @@ export default {
     shorten: (input) => {
       if (input.length <= 10) return input;
       else return input.substring(0,10) + '...';
+    },
+    shortname: (input) => {
+      if (input.length <= 5) return input;
+      else return input.substring(0,5) + '...';
     },
   }
 }

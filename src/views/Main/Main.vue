@@ -30,7 +30,7 @@ export default {
         icon: 'el-icon-message',
         text: '电影',
       }, {
-        index: 'Moments',
+        index: 'FriendMoments',
         icon: 'el-icon-menu',
         text: '动态',
       }, {
