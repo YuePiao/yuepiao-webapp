@@ -45,7 +45,7 @@ export default {
       .then(({ accessToken, currentUser }) => {
         if (!accessToken && !currentUser) {
           this.$router.push({
-            name: 'Movie'
+            name: 'Signin'
           })
         }
       })
