@@ -202,7 +202,7 @@ export default {
       })
 
       this.$http.get(`/api/users/${this.$route.params.userId}`).then(({body: user}) => {
-        this.avatarSrc = user.avatar || 'https://dummyimage.com/120x120.jpg?text=avatar'
+        this.avatar = user.avatar || 'https://dummyimage.com/120x120.jpg?text=avatar'
         this.username = user.username
       })
       
